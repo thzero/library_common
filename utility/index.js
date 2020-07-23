@@ -343,8 +343,6 @@ class Utility {
 
 		return value;
 	}
-
-	static separator = ': ';
 }
 
 export default Utility;
