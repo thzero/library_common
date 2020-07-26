@@ -235,6 +235,17 @@ class Utility {
 		});
 	}
 
+	static selectBlank(array, prompt) {
+		if (!array)
+			return array;
+
+		prompt = prompt ? '<' + prompt + '>' : '';
+
+		const temp = array.slice(0);
+		temp.unshift({ id: null, name: prompt });
+		return temp;
+	}
+
 	static sortByName(values, ascending) {
 		if (!values || !Array.isArray(values))
 			return values;
