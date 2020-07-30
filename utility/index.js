@@ -1,4 +1,8 @@
 import dayjs from 'dayjs';
+import localeData from 'dayjs/plugin/localeData';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
+import utc from 'dayjs/plugin/utc';
+import 'dayjs/locale/en'; // load on demand
 import shortUUID from 'short-uuid';
 import { v4 as uuidv4 } from 'uuid';
 import _cloneDeep from 'lodash/cloneDeep';
@@ -10,6 +14,13 @@ import Response from '../response/index';
 const uuidTranslator = shortUUID();
 
 class Utility {
+	static initDateTime() {
+		dayjs.locale('en'); // use English locale globally
+		dayjs.extend(localeData);
+		dayjs.extend(localizedFormat);
+		dayjs.extend(utc);
+	}
+
 	static async checksumUpdateCheck(crypto, state, commit, name, params) {
 		const internal = {};
 		internal.name = name;
@@ -53,6 +64,7 @@ class Utility {
 		temp.locale(navigator.language);
 		return temp.valueOf();
 	}
+
 	static convertTimestampFromLocal(value) {
 		const temp = dayjs(value).utc();
 		return temp.valueOf();
