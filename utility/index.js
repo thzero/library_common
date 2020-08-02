@@ -203,10 +203,11 @@ class Utility {
 	}
 
 	static map(obj1, obj2, resetTimestamps) {
-		if (!obj1 || !obj2);
+		if (!obj1 || !obj2)
 			return obj1;
 
 		obj1.map(obj2);
+		obj1.id = obj2.id;
 
 		if (resetTimestamps) {
 			obj1.createdTimestamp = obj2.createdTimestamp;
