@@ -80,6 +80,10 @@ class DoubleLinkedList {
 		return this._map.size;
 	}
 
+	get nodes() {
+		return this._map;
+	}
+
 	get pointer() {
 		return this._pointer;
 	}
