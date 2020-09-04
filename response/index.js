@@ -33,7 +33,7 @@ class Response {
 		return new ResponseParam(value, true, suffix);
 	}
 
-	static error(message, err, code, errors) {
+	static error( message, err, code, errors) {
 		let response = new Response();
 		response.success = false;
 		response.err = err;
