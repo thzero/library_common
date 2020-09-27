@@ -1,8 +1,8 @@
 import Response from './index';
 
 class ExtractResponse extends Response {
-	constructor() {
-		super();
+	constructor(correlationId) {
+		super(correlationId);
 
 		this.count = 0;
 		this.total = 0;
