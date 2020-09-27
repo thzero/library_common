@@ -3,13 +3,14 @@ import LibraryConstants from '../constants';
 import ResponseParam from './responseParam';
 
 class Response {
-	constructor() {
+	constructor(correlationId) {
 		this.success = true;
 		this.code = null;
 		this.err = null;
 		this.message = null;
 		this.errors = null;
 		this.params = null;
+		this.correlationId = correlationId;
 	}
 
 	add(message, code, field, type, params, prefix, suffix) {
@@ -33,8 +34,8 @@ class Response {
 		return new ResponseParam(value, true, suffix);
 	}
 
-	static error( message, err, code, errors) {
-		let response = new Response();
+	static error(message, err, code, errors, correlationId) {
+		let response = new Response(correlationId);
 		response.success = false;
 		response.err = err;
 		response.errors = errors;
@@ -43,8 +44,8 @@ class Response {
 		return response;
 	}
 
-	static success() {
-		return new Response();
+	static success(correlationId) {
+		return new Response(correlationId);
 	}
 
 	// eslint-disable-next-line
