@@ -34,9 +34,11 @@ class Response {
 		return new ResponseParam(value, true, suffix);
 	}
 
-	static error(message, err, code, errors, correlationId) {
+	static error(clazz, method, message, err, code, errors, correlationId) {
 		let response = new Response(correlationId);
 		response.success = false;
+		response.clazz = clazz;
+		response.method = method;
 		response.err = err;
 		response.errors = errors;
 		if (message || code)

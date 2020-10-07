@@ -233,7 +233,7 @@ class Utility {
 		// Create a promise that rejects in <ttl> milliseconds
 		const timeoutPromise = new Promise((resolve, reject) => {
 			id = setTimeout(() => {
-				reject(Response.error(`Timed out in ${ttl}ms.`));
+				reject(Response.error(null, null, `Timed out in ${ttl}ms.`));
 			}, ttl);
 		});
 
