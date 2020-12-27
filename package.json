@@ -1,10 +1,10 @@
 {
   "name": "@thzero/library_common",
-  "version": "0.12.0",
+  "version": "0.12.2",
   "version_major": 0,
   "version_minor": 12,
-  "version_patch": 0,
-  "version_date": "12/11/2020",
+  "version_patch": 2,
+  "version_date": "12/26/2020",
   "author": "thZero",
   "license": "MIT",
   "repository": {

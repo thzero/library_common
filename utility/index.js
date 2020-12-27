@@ -1,3 +1,5 @@
+import os from 'os';
+
 import dayjs from 'dayjs';
 import localeData from 'dayjs/plugin/localeData';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
@@ -200,6 +202,21 @@ class Utility {
 
 		value = value ? value.toLowerCase() : ''
 		return ((value === 'dev') || (value === 'development'));
+	}
+
+	static get isLinux() {
+		const type = os.type();
+		return (/^linux/i.test(type) || /^freebsd/i.test(type) || /^darwin/i.test(type));
+	}
+
+	static get isMac() {
+		const type = os.type();
+		return (/^darwin/i.test(type));
+	}
+
+	static get isWin() {
+		const type = os.type();
+		return (/^win/i.test(type));
 	}
 
 	static map(obj1, obj2, resetTimestamps) {
