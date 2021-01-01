@@ -1,10 +1,10 @@
 {
   "name": "@thzero/library_common",
-  "version": "0.12.2",
+  "version": "0.12.3",
   "version_major": 0,
   "version_minor": 12,
-  "version_patch": 2,
-  "version_date": "12/26/2020",
+  "version_patch": 3,
+  "version_date": "01/01/2021",
   "author": "thZero",
   "license": "MIT",
   "repository": {
@@ -20,7 +20,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "dayjs": "^1.9.7",
+    "dayjs": "^1.9.8",
     "dayjs-plugin-utc": "^0.1.2",
     "lodash": "^4.17.20",
     "short-uuid": "^4.1.0",
