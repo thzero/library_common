@@ -1,10 +1,10 @@
 {
   "name": "@thzero/library_common",
-  "version": "0.13.2",
+  "version": "0.13.4",
   "version_major": 0,
   "version_minor": 13,
-  "version_patch": 2,
-  "version_date": "01/10/2021",
+  "version_patch": 4,
+  "version_date": "01/19/2021",
   "author": "thZero",
   "license": "MIT",
   "repository": {
@@ -27,6 +27,6 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@thzero/library_cli": "^0.12.7"
+    "@thzero/library_cli": "^0.13.1"
   }
 }
