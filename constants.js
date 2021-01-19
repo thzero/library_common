@@ -1,10 +1,4 @@
 const LibraryConstants = {
-	InjectorKeys: {
-		SERVICE_CONFIG: 'config',
-		SERVICE_LOGGER: 'serviceLogger',
-		SERVICE_MONITORING: 'serviceMonitoring',
-		SERVICE_VALIDATION: 'serviceValidation'
-	},
 	ErrorCodes: {
 		InvalidObject: 'invalidObject',
 		InvalidPermissions: 'invalidPermissions',
