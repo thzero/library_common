@@ -18,8 +18,8 @@ jobs:
     steps:
     - name: Event Input
       run: |
-        echo Action: ${{ github.event.action }}
-        echo Label: ${{ github.event.client_payload.label }}
+        echo action: ${{ github.event.action }}
+        echo label: ${{ github.event.client_payload.label }}
     - uses: actions/checkout@v2
       with:
         ref: dev
@@ -38,14 +38,22 @@ jobs:
     - name: NCU Updated Check Output
       if: github.event.action == 'npm'
       run: |
-        echo ${{ steps.ncu-upgrade.outputs.upgraded }}
-    # - run: npm install
+        echo upgraded: ${{ steps.ncu-upgrade.outputs.upgraded }}
+        echo npm_and_upgrade? ${{ (github.event.action == 'npm' && steps.ncu-upgrade.outputs.upgraded) }}
+    - name: Output
+      run: |
+        echo upgraded: ${{ steps.ncu-upgrade.outputs.upgraded }}
+        echo action: ${{ github.event.action }}
+        echo action_is_npm? ${{ (github.event.action == 'npm') }}
+        echo npm_and_upgrade? ${{ (github.event.action == 'npm' && steps.ncu-upgrade.outputs.upgraded == true) }}
+        echo action_is_version? ${{ (github.event.action == 'version') }}
+        echo upgrade? ${{ ((github.event.action == 'npm' && steps.ncu-upgrade.outputs.upgraded == true) || github.event.action == 'version') }}
     - name: Node Dependencies
-      if: success()
+      if: ((github.event.action == 'npm' && steps.ncu-upgrade.outputs.upgraded == true) || github.event.action == 'version')
       run: |
         npm install --no-package-lock
     - name: Update Package Version
-      if: ((github.event.action == 'npm' && steps.ncu-upgrade.outputs.upgraded) || github.event.action == 'version') && success()
+      if: ((github.event.action == 'npm' && steps.ncu-upgrade.outputs.upgraded == true) || github.event.action == 'version')
       run: |
         npm run cli-update -- --silent
     - name: Git Check
@@ -54,7 +62,9 @@ jobs:
       uses: UnicornGlobal/has-changes-action@v1.0.11
     - name: Git Check Output
       run: |
-        echo ${{ steps.git-changes.outputs.changed }}
+        echo changed? ${{ steps.git-changes.outputs.changed }}
+        echo npm commit? ${{ github.event.action == 'npm' && steps.git-changes.outputs.changed == 1 }}
+        echo !npm commit? ${{ github.event.action != 'npm' && steps.git-changes.outputs.changed == 1 && github.event.client_payload.label != '' }}
     - name: Git Commit NPM
       if: github.event.action == 'npm' && steps.git-changes.outputs.changed == 1
       run: |
@@ -63,14 +73,17 @@ jobs:
         git add .
         git commit -m "npm updates"
         git push
-    - name: Git Commit !NPM
-      if: github.event.action != 'npm' && steps.git-changes.outputs.changed == 1 && github.event.client_payload.label
+    - name: Git Commit Version
+      if: github.event.action == 'version' && steps.git-changes.outputs.changed == 1 && github.event.client_payload.label != ''
       run: |
         git config --global user.name '${{ github.repository_owner }}'
         git config --global user.email '${{ github.repository_owner }}@users.noreply.github.com'
         git add .
-        git commit -m "${{ github.event.client_payload.label }}"
+        git commit -m "version updates"
         git push
+    - name: Requires Pull Request?
+      run: |
+        echo changed? ${{ steps.git-changes.outputs.changed }}
     - name: Pull Request
       id: pull-request
       if: steps.git-changes.outputs.changed == 1 && success()
