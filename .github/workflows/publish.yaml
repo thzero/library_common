@@ -107,3 +107,11 @@ jobs:
       if: steps.git-changes.outputs.changed == 1 && success()
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    - name: Repository Dispatch - Common
+        if: github.event.inputs.library == null || github.event.inputs.library == ''
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.ACCESS_TOKEN }}
+          repository: thzero/library_common
+          event-type: ${{ github.event.inputs.type }}
+          client-payload: '{ "label": "${{ github.event.client_payload.label }}", "library": "${{ github.event.inputs.library }}" }'
