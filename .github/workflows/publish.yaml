@@ -18,8 +18,10 @@ jobs:
     steps:
     - name: Event Input
       run: |
-        echo action: ${{ github.event.action }}
+        echo event-type: ${{ github.event.action }}
+        echo action: ${{ github.event.client_payload.action }}
         echo label: ${{ github.event.client_payload.label }}
+        echo library: ${{ github.event.client_payload.library }}
     - uses: actions/checkout@v2
       with:
         ref: dev
@@ -27,7 +29,7 @@ jobs:
       run: |
         cat package.json
     - name: Initialize Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
         registry-url: 'https://registry.npmjs.org'
@@ -107,11 +109,11 @@ jobs:
       if: steps.git-changes.outputs.changed == 1 && success()
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-    - name: Repository Dispatch - Common
-        if: github.event.inputs.library == null || github.event.inputs.library == ''
-        uses: peter-evans/repository-dispatch@v1
-        with:
-          token: ${{ secrets.ACCESS_TOKEN }}
-          repository: thzero/library_common
-          event-type: ${{ github.event.inputs.type }}
-          client-payload: '{ "label": "${{ github.event.client_payload.label }}", "library": "${{ github.event.inputs.library }}" }'
+    - name: Repository Dispatch - Build Base
+      if: github.event.action == 'build_all'
+      uses: peter-evans/repository-dispatch@v1
+      with:
+        token: ${{ secrets.ACCESS_TOKEN }}
+        repository: thzero/library_build
+        event-type: ${{ github.event.action }}
+        client-payload: '{ "action": "${{ github.event.client_payload.action }}", "label": "${{ github.event.client_payload.label }}" }'
