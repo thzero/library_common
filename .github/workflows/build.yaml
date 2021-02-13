@@ -115,5 +115,5 @@ jobs:
       with:
         token: ${{ secrets.ACCESS_TOKEN }}
         repository: thzero/library_build
-        event-type: ${{ github.event.action }}
+        event-type: 'build_all_base'
         client-payload: '{ "action": "${{ github.event.client_payload.action }}", "label": "${{ github.event.client_payload.label }}" }'
