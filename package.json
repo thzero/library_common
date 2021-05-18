@@ -1,10 +1,10 @@
 {
   "name": "@thzero/library_common",
-  "version": "0.13.12",
+  "version": "0.13.13",
   "version_major": 0,
   "version_minor": 13,
-  "version_patch": 12,
-  "version_date": "03/07/2021",
+  "version_patch": 13,
+  "version_date": "05/18/2021",
   "author": "thZero",
   "license": "MIT",
   "repository": {
@@ -23,7 +23,7 @@
     "dayjs": "^1.10.4",
     "dayjs-plugin-utc": "^0.1.2",
     "lodash": "^4.17.21",
-    "short-uuid": "^4.1.0",
+    "short-uuid": "^4.2.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
