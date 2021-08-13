@@ -6,6 +6,7 @@ class BaseUserData extends Data {
 	constructor() {
 		super();
 
+		this.email = null;
 		this.planId = null;
 		this.roles = [];
 		this.settings = this._initUserSettings();
@@ -16,6 +17,7 @@ class BaseUserData extends Data {
 		if (!requested)
 			return;
 
+		this.email = requested.email;
 		this.planId = requested.planId;
 		this.roles = requested.roles;
 	}
