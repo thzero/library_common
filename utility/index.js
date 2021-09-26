@@ -248,6 +248,12 @@ class Utility {
 		});
 	}
 
+	static randomKeyGen() {
+		const high = 100000000000;
+		const low = 0;
+		return Math.floor(Math.random() * (high - low) + low);
+	}
+
 	static selectBlank(array, prompt) {
 		if (!array)
 			return array;
@@ -359,6 +365,42 @@ class Utility {
 		delete object.createdUserId;
 		delete object.updatedUserId;
 		return object;
+	}
+
+	static updateArrayById(array, id) {
+		if (String.isNullOrEmpty(id))
+			return;
+
+		let index = array.findIndex(l => l.id !== id);
+		if (index === -1)
+			array.push(object);
+		else
+			array[index] = object;
+		return array;
+
+		// const result = [
+		// 	...array.filter(element => element.id !== id),
+		// 	object
+		// ];
+		// return result;
+	}
+
+	static updateArrayByObject(array, object) {
+		if (!object)
+			return;
+
+		let index = array.findIndex(l => l.id !== object.id);
+		if (index === -1)
+			array.push(object);
+		else
+			array[index] = object;
+		return array;
+
+		// const result = [
+		// 	...array.filter(element => element.id !== object.id),
+		// 	object
+		// ];
+		// return result;
 	}
 
 	static _replacer(key, value) {
