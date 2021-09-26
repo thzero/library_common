@@ -1,9 +1,9 @@
 {
   "name": "@thzero/library_common",
-  "version": "0.13.24",
+  "version": "0.13.25",
   "version_major": 0,
   "version_minor": 13,
-  "version_patch": 24,
+  "version_patch": 25,
   "version_date": "09/26/2021",
   "author": "thZero",
   "license": "MIT",
