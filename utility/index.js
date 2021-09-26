@@ -361,6 +361,42 @@ class Utility {
 		return object;
 	}
 
+	static updateArrayById(array, id) {
+		if (String.isNullOrEmpty(id))
+			return;
+
+		let index = array.findIndex(l => l.id !== id);
+		if (index === -1)
+			array.push(object);
+		else
+			array[index] = object;
+		return array;
+
+		// const result = [
+		// 	...array.filter(element => element.id !== id),
+		// 	object
+		// ];
+		// return result;
+	}
+
+	static updateArrayByObject(array, object) {
+		if (!object)
+			return;
+
+		let index = array.findIndex(l => l.id !== object.id);
+		if (index === -1)
+			array.push(object);
+		else
+			array[index] = object;
+		return array;
+
+		// const result = [
+		// 	...array.filter(element => element.id !== object.id),
+		// 	object
+		// ];
+		// return result;
+	}
+
 	static _replacer(key, value) {
 		if (value === null)
 			return undefined;
