@@ -248,6 +248,12 @@ class Utility {
 		});
 	}
 
+	static randomKeyGen() {
+		const high = 100000000000;
+		const low = 0;
+		return Math.floor(Math.random() * (high - low) + low);
+	}
+
 	static selectBlank(array, prompt) {
 		if (!array)
 			return array;
