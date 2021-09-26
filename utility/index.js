@@ -371,7 +371,7 @@ class Utility {
 		if (String.isNullOrEmpty(id))
 			return;
 
-		let index = array.findIndex(l => l.id !== id);
+		let index = array.findIndex(l => l.id === id);
 		if (index === -1)
 			array.push(object);
 		else
@@ -389,7 +389,7 @@ class Utility {
 		if (!object)
 			return;
 
-		let index = array.findIndex(l => l.id !== object.id);
+		let index = array.findIndex(l => l.id === object.id);
 		if (index === -1)
 			array.push(object);
 		else
