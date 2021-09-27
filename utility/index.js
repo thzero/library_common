@@ -254,6 +254,16 @@ class Utility {
 		return Math.floor(Math.random() * (high - low) + low);
 	}
 
+	static removeArrayById(array, id) {
+		if (!id)
+			return;
+
+		const index = array.findIndex(l => l.id !== id);
+		if (index > 0)
+			return array.splice(index, 1);
+		return array;
+	}
+
 	static selectBlank(array, prompt) {
 		if (!array)
 			return array;
