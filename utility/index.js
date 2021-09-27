@@ -14,6 +14,10 @@ import Response from '../response/index';
 const uuidTranslator = shortUUID();
 
 class Utility {
+	static correlationId() {
+		return Utility.generateId();
+	}
+
 	static initDateTime() {
 		dayjs.locale('en'); // use English locale globally
 		dayjs.extend(localeData);
