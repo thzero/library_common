@@ -381,40 +381,44 @@ class Utility {
 		return object;
 	}
 
-	static updateArrayById(array, id) {
+	static updateArrayById(array, id, forceNew) {
 		if (String.isNullOrEmpty(id))
 			return;
 
-		let index = array.findIndex(l => l.id === id);
-		if (index === -1)
-			array.push(object);
-		else
-			array[index] = object;
-		return array;
+		if (!forceNew) {
+			let index = array.findIndex(l => l.id === id);
+			if (index === -1)
+				array.push(object);
+			else
+				array[index] = object;
+			return array;
+		}
 
-		// const result = [
-		// 	...array.filter(element => element.id !== id),
-		// 	object
-		// ];
-		// return result;
+		const result = [
+			...array.filter(element => element.id !== id),
+			object
+		];
+		return result;
 	}
 
-	static updateArrayByObject(array, object) {
+	static updateArrayByObject(array, object, forceNew) {
 		if (!object)
 			return;
 
-		let index = array.findIndex(l => l.id === object.id);
-		if (index === -1)
-			array.push(object);
-		else
-			array[index] = object;
-		return array;
+		if (!forceNew) {
+			let index = array.findIndex(l => l.id === object.id);
+			if (index === -1)
+				array.push(object);
+			else
+				array[index] = object;
+			return array;
+		}
 
-		// const result = [
-		// 	...array.filter(element => element.id !== object.id),
-		// 	object
-		// ];
-		// return result;
+		const result = [
+			...array.filter(element => element.id !== object.id),
+			object
+		];
+		return result;
 	}
 
 	static _replacer(key, value) {
