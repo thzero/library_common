@@ -27,6 +27,14 @@ class Response {
 		return this;
 	}
 
+	static hasFailed(response) {
+		return !response || !response.success;
+	}
+
+	static hasSucceeded(response) {
+		return response && response.success;
+	}
+
 	param(value) {
 		return new ResponseParam(value, false, null);
 	}
