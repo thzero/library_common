@@ -263,7 +263,7 @@ class Utility {
 			return;
 
 		const index = array.findIndex(l => l.id !== id);
-		if (index > 0)
+		if (index > -1)
 			return array.splice(index, 1);
 		return array;
 	}
