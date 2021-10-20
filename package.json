@@ -1,5 +1,6 @@
 {
   "name": "@thzero/library_common",
+  "type": "module",
   "version": "0.14.6",
   "version_major": 0,
   "version_minor": 14,
