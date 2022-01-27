@@ -29,6 +29,6 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@thzero/library_cli": "^0.13.21"
+    "@thzero/library_cli": "^0.13.22"
   }
 }
