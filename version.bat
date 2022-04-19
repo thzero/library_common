@@ -1,1 +1,1 @@
-@npm run cli-update-w
+@npm run cli-update

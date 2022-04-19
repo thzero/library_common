@@ -17,8 +17,7 @@
   },
   "homepage": "https://github.com/thzero/library_common#readme",
   "scripts": {
-    "cli-update": "./node_modules/.bin/library-cli --updateversion --pi",
-    "cli-update-w": ".\\node_modules\\.bin\\library-cli --updateversion --pi",
+    "cli-update": "library-cli --updateversion --pi",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -27,8 +26,5 @@
     "lodash": "^4.17.21",
     "short-uuid": "^4.2.0",
     "uuid": "^8.3.2"
-  },
-  "devDependencies": {
-    "@thzero/library_cli": "^0.15"
   }
 }
