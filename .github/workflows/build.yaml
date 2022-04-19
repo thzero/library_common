@@ -48,6 +48,10 @@ jobs:
         echo npm_and_upgrade? ${{ (github.event.client_payload.action == 'npm' && steps.ncu-upgrade.outputs.upgraded == true) }}
         echo action_is_version? ${{ (github.event.action == 'version') }}
         echo upgrade? ${{ ((github.event.client_payload.action == 'npm' && steps.ncu-upgrade.outputs.upgraded == true) || github.event.action == 'version') }}
+    - name: Node Dependencies for CLI
+      if: ((github.event.client_payload.action == 'npm' && steps.ncu-upgrade.outputs.upgraded == true) || github.event.action == 'version')
+      run: |
+        npm install -g @thzero/library_cli
     - name: Node Dependencies
       if: ((github.event.client_payload.action == 'npm' && steps.ncu-upgrade.outputs.upgraded == true) || github.event.action == 'version')
       run: |
@@ -55,7 +59,8 @@ jobs:
     - name: Update Package Version
       if: ((github.event.client_payload.action == 'npm' && steps.ncu-upgrade.outputs.upgraded == true) || github.event.action == 'version')
       run: |
-        npm run cli-update -- --silent
+        # npm run cli-update -- --silent
+        library-cli --updateversion --pi --silent
     - name: Git Check
       id: git-changes
       if: success()
