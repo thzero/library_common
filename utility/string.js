@@ -1,3 +1,9 @@
+String.capitalize = function(word) {
+	if (String.isNullOrEmpty(word))
+		return word;
+	return word[0].toUpperCase() + word.slice(1).toLowerCase();
+};
+
 String.isNullOrEmpty = function(value) {
 	// return !(typeof value === 'string' && value.length > 0)
 	return !value;
