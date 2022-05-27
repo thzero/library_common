@@ -1,11 +1,11 @@
 {
   "name": "@thzero/library_common",
   "type": "module",
-  "version": "0.15.13",
+  "version": "0.15.14",
   "version_major": 0,
   "version_minor": 15,
-  "version_patch": 13,
-  "version_date": "04/20/2022",
+  "version_patch": 14,
+  "version_date": "05/26/2022",
   "author": "thZero",
   "license": "MIT",
   "repository": {
@@ -21,7 +21,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "dayjs": "^1.11.1",
+    "dayjs": "^1.11.2",
     "dayjs-plugin-utc": "^0.1.2",
     "lodash": "^4.17.21",
     "short-uuid": "^4.2.0",
