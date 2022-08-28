@@ -1,6 +1,6 @@
-import Data from './index';
+import Data from './index.js';
 
-import NotImplementedError from '../errors/notImplemented';
+import NotImplementedError from '../errors/notImplemented.js';
 
 class BaseNewsData extends Data {
 	constructor() {
