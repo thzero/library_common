@@ -1,4 +1,4 @@
-import Response from './index';
+import Response from './index.js';
 
 class ExtractResponse extends Response {
 	constructor(correlationId) {

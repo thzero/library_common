@@ -1,4 +1,4 @@
-import Utility from '../utility';
+import Utility from '../utility/index.js';
 
 class Data {
 	constructor() {

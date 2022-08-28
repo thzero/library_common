@@ -1,15 +1,15 @@
 import dayjs from 'dayjs';
-import localeData from 'dayjs/plugin/localeData';
-import localizedFormat from 'dayjs/plugin/localizedFormat';
-import utc from 'dayjs/plugin/utc';
-import 'dayjs/locale/en'; // load on demand
+import localeData from 'dayjs/plugin/localeData.js';
+import localizedFormat from 'dayjs/plugin/localizedFormat.js';
+import utc from 'dayjs/plugin/utc.js';
+import 'dayjs/locale/en.js'; // load on demand
 import shortUUID from 'short-uuid';
 import { v4 as uuidv4 } from 'uuid';
-import _cloneDeep from 'lodash/cloneDeep';
-import _debounce from 'lodash/debounce';
-import _merge from 'lodash/merge';
+import _cloneDeep from 'lodash/cloneDeep.js';
+import _debounce from 'lodash/debounce.js';
+import _merge from 'lodash/merge.js';
 
-import Response from '../response/index';
+import Response from '../response/index.js';
 
 const uuidTranslator = shortUUID();
 

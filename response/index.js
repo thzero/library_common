@@ -1,6 +1,6 @@
-import LibraryConstants from '../constants';
+import LibraryConstants from '../constants.js';
 
-import ResponseParam from './responseParam';
+import ResponseParam from './responseParam.js';
 
 class Response {
 	constructor(correlationId, results) {
