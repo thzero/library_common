@@ -206,6 +206,10 @@ class Utility {
 		return ((value === 'dev') || (value === 'development'));
 	}
 
+	static isNull(value) {
+		return !value || value === undefined;
+	}
+
 	static map(obj1, obj2, resetTimestamps) {
 		if (!obj1 || !obj2)
 			return obj1;
