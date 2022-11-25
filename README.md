@@ -4,7 +4,7 @@
 
 # library_common
 
-### Installation
+## Installation
 
 [![NPM](https://nodei.co/npm/@thzero/library_common.png?compact=true)](https://npmjs.org/package/@thzero/library_common)
 
