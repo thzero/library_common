@@ -18,3 +18,5 @@ String.trim = function(value) {
 		return value;
 	return value.trim();
 }
+
+export default String;
