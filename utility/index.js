@@ -206,8 +206,28 @@ class Utility {
 		return ((value === 'dev') || (value === 'development'));
 	}
 
+	static isFunction(value) {
+		return (value instanceof Function);
+	}
+
+	static isNotFunction(value) {
+		return !Utility.isFunction(value);
+	}
+
+	static isNotNull(value) {
+		return !Utility.isNull(value);
+	}
+
+	static isNotObject(value) {
+		return !Utility.isObject(value);
+	}
+
 	static isNull(value) {
-		return !value || value === undefined;
+		return value === null || value === undefined;
+	}
+
+	static isObject(value) {
+		return value === Object(value);
 	}
 
 	static map(obj1, obj2, resetTimestamps) {
