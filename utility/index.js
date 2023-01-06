@@ -5,9 +5,7 @@ import utc from 'dayjs/plugin/utc.js';
 import 'dayjs/locale/en.js'; // load on demand
 import shortUUID from 'short-uuid';
 import { v4 as uuidv4 } from 'uuid';
-import _cloneDeep from 'lodash/cloneDeep.js';
-import _debounce from 'lodash/debounce.js';
-import _merge from 'lodash/merge.js';
+import { cloneDeep as _cloneDeep, debounce as _debounce, merge as _merge } from "lodash-es";
 
 import Response from '../response/index.js';
 
