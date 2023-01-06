@@ -23,7 +23,7 @@
   "dependencies": {
     "dayjs": "^1.11.7",
     "dayjs-plugin-utc": "^0.1.2",
-    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
     "short-uuid": "^4.2.2",
     "uuid": "^9.0.0"
   }
