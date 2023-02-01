@@ -1,9 +1,9 @@
-import Utility from '../utility/index.js';
+import LibraryCommonUtility from '../utility/index.js';
 
 class Data {
 	constructor() {
-		this.id = Utility.generateId();
-		this.createdTimestamp = Utility.getTimestamp();
+		this.id = LibraryCommonUtility.generateId();
+		this.createdTimestamp = LibraryCommonUtility.getTimestamp();
 		this.createdUserId = null;
 		this.updatedTimestamp = Utility.getTimestamp();
 		this.updatedUserId = null;

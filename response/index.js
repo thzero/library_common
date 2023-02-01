@@ -1,4 +1,4 @@
-import LibraryConstants from '../constants.js';
+import LibraryCommonConstants from '../constants.js';
 
 import ResponseParam from './responseParam.js';
 
@@ -19,7 +19,7 @@ class Response {
 	}
 
 	addGeneric(message, code, params, prefix, suffix) {
-		return this._add(message, code, LibraryConstants.ErrorFields.Generic, null, params, prefix, suffix);
+		return this._add(message, code, LibraryCommonConstants.ErrorFields.Generic, null, params, prefix, suffix);
 	}
 
 	// eslint-disable-next-line

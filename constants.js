@@ -1,4 +1,4 @@
-const LibraryConstants = {
+const LibraryCommonConstants = {
 	ErrorCodes: {
 		InvalidObject: 'invalidObject',
 		InvalidPermissions: 'invalidPermissions',
@@ -13,4 +13,4 @@ const LibraryConstants = {
 	}
 }
 
-export default LibraryConstants;
+export default LibraryCommonConstants;

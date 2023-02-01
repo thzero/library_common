@@ -11,9 +11,9 @@ import Response from '../response/index.js';
 
 const uuidTranslator = shortUUID();
 
-class Utility {
+class LibraryCommonUtility {
 	static correlationId() {
-		return Utility.generateId();
+		return LibraryCommonUtility.generateId();
 	}
 
 	static initDateTime() {
@@ -31,16 +31,16 @@ class Utility {
 
 		const temp = state.checksumLastUpdate[checksum];
 		if (!temp) {
-			// state.checksumLastUpdate[checksum] = Utility.getTimestamp()
+			// state.checksumLastUpdate[checksum] = LibraryCommonUtility.getTimestamp()
 			// commit('setCheckumLastUpdate', state.checksumLastUpdate)
 			return false;
 		}
 
-		const now = Utility.getTimestamp();
+		const now = LibraryCommonUtility.getTimestamp();
 		const delta = now - temp;
 		const max = 5 * 1000 * 60;
 		if (delta > max) {
-			// state.checksumLastUpdate[checksum] = Utility.getTimestamp()
+			// state.checksumLastUpdate[checksum] = LibraryCommonUtility.getTimestamp()
 			// commit('setCheckumLastUpdate', state.checksumLastUpdate)
 			return false;
 		}
@@ -53,7 +53,7 @@ class Utility {
 		internal.name = name;
 		internal.params = params;
 		const checksum = crypto.checksum(internal);
-		state.checksumLastUpdate[checksum] = Utility.getTimestamp();
+		state.checksumLastUpdate[checksum] = LibraryCommonUtility.getTimestamp();
 		commit('setCheckumLastUpdate', state.checksumLastUpdate);
 	}
 
@@ -101,7 +101,7 @@ class Utility {
 	static formatUrl(url) {
 		let urlF = url;
 		if (!(typeof url === 'string' || url instanceof String))
-			urlF = Utility.formatUrlParams(url.url, url.params);
+			urlF = LibraryCommonUtility.formatUrlParams(url.url, url.params);
 		return urlF;
 	}
 
@@ -114,7 +114,7 @@ class Utility {
 
 	static generateId() {
 		// return uuidv4();
-		return Utility.generateShortId();
+		return LibraryCommonUtility.generateShortId();
 	}
 
 	static generateLongId() {
@@ -143,11 +143,11 @@ class Utility {
 	}
 
 	static getDateHuman(date) {
-		return dayjs(date).locale(navigator.language).format(`${Utility.getDateFormat()} ${Utility.getTimeFormat()}`);
+		return dayjs(date).locale(navigator.language).format(`${LibraryCommonUtility.getDateFormat()} ${LibraryCommonUtility.getTimeFormat()}`);
 	}
 
 	static getDateHumanFromUnix(date) {
-		return dayjs.unix(date).locale(navigator.language).format(`${Utility.getDateFormat()} ${Utility.getTimeFormat()}`);
+		return dayjs.unix(date).locale(navigator.language).format(`${LibraryCommonUtility.getDateFormat()} ${LibraryCommonUtility.getTimeFormat()}`);
 	}
 
 	static getDateParse(value) {
@@ -209,15 +209,15 @@ class Utility {
 	}
 
 	static isNotFunction(value) {
-		return !Utility.isFunction(value);
+		return !LibraryCommonUtility.isFunction(value);
 	}
 
 	static isNotNull(value) {
-		return !Utility.isNull(value);
+		return !LibraryCommonUtility.isNull(value);
 	}
 
 	static isNotObject(value) {
-		return !Utility.isObject(value);
+		return !LibraryCommonUtility.isObject(value);
 	}
 
 	static isNull(value) {
@@ -306,9 +306,9 @@ class Utility {
 			return values;
 
 		if (ascending)
-			return values.sort((a, b) => Utility.sortByString(a, b, (v) => { return v ? v.name : null }));
+			return values.sort((a, b) => LibraryCommonUtility.sortByString(a, b, (v) => { return v ? v.name : null }));
 
-		return values.sort((a, b) => Utility.sortByString(b, a, (v) => { return v ? v.name : null }));
+		return values.sort((a, b) => LibraryCommonUtility.sortByString(b, a, (v) => { return v ? v.name : null }));
 	}
 
 	static sortByNumber(a, b, field) {
@@ -330,9 +330,9 @@ class Utility {
 			return values;
 
 		if (ascending)
-			return values.sort((a, b) => Utility.sortByNumber(a, b, field));
+			return values.sort((a, b) => LibraryCommonUtility.sortByNumber(a, b, field));
 
-		return values.sort((a, b) => Utility.sortByNumber(b, a, field));
+		return values.sort((a, b) => LibraryCommonUtility.sortByNumber(b, a, field));
 	}
 
 	static sortByOrder(values, ascending) {
@@ -340,9 +340,9 @@ class Utility {
 			return values;
 
 		if (ascending)
-			return values.sort((a, b) => Utility.sortByNumber(b, a, (v) => { return v ? v.order : null }));
+			return values.sort((a, b) => LibraryCommonUtility.sortByNumber(b, a, (v) => { return v ? v.order : null }));
 
-		return values.sort((a, b) => Utility.sortByNumber(a, b, (v) => { return v ? v.order : null }));
+		return values.sort((a, b) => LibraryCommonUtility.sortByNumber(a, b, (v) => { return v ? v.order : null }));
 	}
 
 	static sortByString(a, b, field) {
@@ -364,13 +364,13 @@ class Utility {
 			return values;
 
 		if (ascending)
-			return values.sort((a, b) => Utility.sortByNumber(a, b, (v) => { return v ? v.timestamp : null }));
+			return values.sort((a, b) => LibraryCommonUtility.sortByNumber(a, b, (v) => { return v ? v.timestamp : null }));
 
-		return values.sort((a, b) => Utility.sortByNumber(b, a, (v) => { return v ? v.timestamp : null }));
+		return values.sort((a, b) => LibraryCommonUtility.sortByNumber(b, a, (v) => { return v ? v.timestamp : null }));
 	}
 
 	static stringify(value) {
-		return JSON.stringify(value, Utility._replacer);
+		return JSON.stringify(value, LibraryCommonUtility._replacer);
 	}
 
 	static timerStart() {
@@ -451,4 +451,4 @@ class Utility {
 	}
 }
 
-export default Utility;
+export default LibraryCommonUtility;
