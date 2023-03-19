@@ -30,13 +30,6 @@ export default () => {
         },
         {
             category: 'client',
-            name: 'short-uuid',
-            url: 'https://github.com/oculus42/short-uuid',
-            licenseName: 'MIT',
-            licenseUrl: 'https://github.com/oculus42/short-uuid/blob/develop/LICENSE'
-        },
-        {
-            category: 'client',
             name: 'uuid',
             url: 'https://github.com/kelektiv/node-uuid',
             licenseName: 'MIT',
@@ -69,13 +62,6 @@ export default () => {
             url: 'https://github.com/lodash/lodash',
             licenseName: 'MIT',
             licenseUrl: 'https://github.com/lodash/lodash/blob/master/LICENSE'
-        },
-        {
-            category: 'server',
-            name: 'short-uuid',
-            url: 'https://github.com/oculus42/short-uuid',
-            licenseName: 'MIT',
-            licenseUrl: 'https://github.com/oculus42/short-uuid/blob/develop/LICENSE'
         },
         {
             category: 'server',
