@@ -3,15 +3,18 @@ import localeData from 'dayjs/plugin/localeData.js';
 import localizedFormat from 'dayjs/plugin/localizedFormat.js';
 import utc from 'dayjs/plugin/utc.js';
 import 'dayjs/locale/en.js'; // load on demand
-import shortUUID from 'short-uuid';
-import { v4 as uuidv4 } from 'uuid';
 import { cloneDeep as _cloneDeep, debounce as _debounce, merge as _merge } from "lodash-es";
+import { v4 as uuidv4 } from 'uuid';
 
 import Response from '../response/index.js';
 
-const uuidTranslator = shortUUID();
-
 class Utility {
+	static _idGenerator;
+
+	static setIdGenerator(generator) {
+		Utility._idGenerator = generator;
+	}
+
 	static correlationId() {
 		return Utility.generateId();
 	}
@@ -113,16 +116,21 @@ class Utility {
 	}
 
 	static generateId() {
-		// return uuidv4();
-		return Utility.generateShortId();
+		if (Utility._idGenerator)
+			return Utility._idGenerator.generateId();
+		return Utility.generateLongId();
 	}
 
 	static generateLongId() {
+		if (Utility._idGenerator)
+			return Utility._idGenerator.generateLongId();
 		return uuidv4();
 	}
 
 	static generateShortId() {
-		return uuidTranslator.fromUUID(uuidv4());
+		if (Utility._idGenerator)
+			return Utility._idGenerator.generateShortId();
+		return uuidv4();
 	}
 
 	static getDate(date) {
@@ -301,6 +309,16 @@ class Utility {
 		return temp;
 	}
 
+	static setLengthLong(length) {
+		if (Utility._idGenerator)
+			Utility._idGenerator.setLengthLong(length);
+	}
+
+	static setLengthShort(length) {
+		if (Utility._idGenerator)
+			Utility._idGenerator.setLengthShort(length);
+	}
+
 	static sortByName(values, ascending) {
 		if (!values || !Array.isArray(values))
 			return values;
@@ -386,11 +404,15 @@ class Utility {
 	}
 
 	static translateToShortId(id) {
-		return uuidTranslator.fromUUID(id);
+		if (Utility._idGenerator)
+			return Utility._idGenerator.translateToShortId(id);
+		return null;
 	}
 
 	static translateToId(id) {
-		return uuidTranslator.toUUID(id);
+		if (Utility._idGenerator)
+			return Utility._idGenerator.translateToId(id);
+		return null;
 	}
 
 	static update(object) {
