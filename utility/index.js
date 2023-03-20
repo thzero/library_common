@@ -11,21 +11,6 @@ import Response from '../response/index.js';
 class Utility {
 	static _idGenerator;
 
-	static setIdGenerator(generator) {
-		Utility._idGenerator = generator;
-	}
-
-	static correlationId() {
-		return Utility.generateId();
-	}
-
-	static initDateTime() {
-		dayjs.locale('en'); // use English locale globally
-		dayjs.extend(localeData);
-		dayjs.extend(localizedFormat);
-		dayjs.extend(utc);
-	}
-
 	static async checksumUpdateCheck(crypto, state, commit, name, params) {
 		const internal = {};
 		internal.name = name;
@@ -83,6 +68,10 @@ class Utility {
 	static convertTimestampSecondsFromLocal(value) {
 		const temp = dayjs.unix(value).utc();
 		return temp.valueOf();
+	}
+
+	static correlationId() {
+		return Utility.generateId();
 	}
 
 	static debounce(func, ttl) {
@@ -189,6 +178,13 @@ class Utility {
 		const temp = dayjs().unix();
 		temp.locale(navigator.locale);
 		return temp.valueOf();
+	}
+
+	static initDateTime() {
+		dayjs.locale('en'); // use English locale globally
+		dayjs.extend(localeData);
+		dayjs.extend(localizedFormat);
+		dayjs.extend(utc);
 	}
 
 	static instantiate(object) {
@@ -309,12 +305,16 @@ class Utility {
 		return temp;
 	}
 
-	static setLengthLong(length) {
+	static setIdGenerator(generator) {
+		Utility._idGenerator = generator;
+	}
+
+	static setIdGeneratorLengthLong(length) {
 		if (Utility._idGenerator)
 			Utility._idGenerator.setLengthLong(length);
 	}
 
-	static setLengthShort(length) {
+	static setIdGeneratorLengthShort(length) {
 		if (Utility._idGenerator)
 			Utility._idGenerator.setLengthShort(length);
 	}
