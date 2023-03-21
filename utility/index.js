@@ -4,12 +4,14 @@ import localizedFormat from 'dayjs/plugin/localizedFormat.js';
 import utc from 'dayjs/plugin/utc.js';
 import 'dayjs/locale/en.js'; // load on demand
 import { cloneDeep as _cloneDeep, debounce as _debounce, merge as _merge } from "lodash-es";
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid';
+
+import IdGenerator from '@thzero/library_id_nanoid';
 
 import Response from '../response/index.js';
 
 class Utility {
-	static _idGenerator;
+	static _idGenerator = IdGenerator;
 
 	static async checksumUpdateCheck(crypto, state, commit, name, params) {
 		const internal = {};
@@ -111,15 +113,15 @@ class Utility {
 	}
 
 	static generateLongId() {
-		if (Utility._idGenerator)
+		// if (Utility._idGenerator)
 			return Utility._idGenerator.generateLongId();
-		return uuidv4();
+		// return uuidv4();
 	}
 
 	static generateShortId() {
-		if (Utility._idGenerator)
+		// if (Utility._idGenerator)
 			return Utility._idGenerator.generateShortId();
-		return uuidv4();
+		// return uuidv4();
 	}
 
 	static getDate(date) {
@@ -307,6 +309,11 @@ class Utility {
 
 	static setIdGenerator(generator) {
 		Utility._idGenerator = generator;
+	}
+
+	static setIdGeneratorAlphabet(alphabet) {
+		if (Utility._idGenerator)
+			Utility._idGenerator.setAlphabet(alphabet);
 	}
 
 	static setIdGeneratorLengthLong(length) {
