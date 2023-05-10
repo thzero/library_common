@@ -12,8 +12,7 @@
 
 ### Depednencies
 
-By default this library uses the nanoid for generation of long (21 length) and short (16 length) ids based on https://github.com/ai/nanoid
-with the default character set.
+By default this library uses the https://github.com/ai/nanoid package for generation of long (21 length) and short (16 length) ids based on https://github.com/ai/nanoid with the default character set.
 
 To use a  different id number generator, you can use one of the following packages:
 
