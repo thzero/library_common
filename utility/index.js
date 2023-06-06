@@ -227,7 +227,11 @@ class Utility {
 	}
 
 	static isNull(value) {
-		return value === null || value === undefined;
+		if (value === null || value === undefined)
+			return true;
+		if (Array.isArray(value))
+			return value.length === 0;
+		return false;
 	}
 
 	static isObject(value) {

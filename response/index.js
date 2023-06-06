@@ -10,7 +10,7 @@ class Response {
 		this.message = null;
 		this.errors = null;
 		this.params = null;
-		this.results = results ? results : null;
+		this.results = results !== null && results !== undefined ? results : null;
 		this.correlationId = correlationId;
 	}
 
