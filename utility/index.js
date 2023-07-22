@@ -436,7 +436,7 @@ class Utility {
 		return object;
 	}
 
-	static updateArrayById(array, id, forceNew) {
+	static updateArrayById(array, id, object, forceNew) {
 		if (String.isNullOrEmpty(id))
 			return;
 
