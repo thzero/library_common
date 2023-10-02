@@ -10,6 +10,10 @@ const LibraryConstants = {
 		Name: 'name',
 		Number: 'number',
 		Order: 'order'
+	},
+	Security: {
+		logicalAnd: 'and',
+		logicalOr: 'or'
 	}
 }
 
