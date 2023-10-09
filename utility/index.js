@@ -142,15 +142,23 @@ class Utility {
 	}
 
 	static getDateHuman(date) {
-		return dayjs(date).locale(navigator.language).format(`${Utility.getDateFormat()} ${Utility.getTimeFormat()}`);
+		return dayjs(date).locale(navigator.language).format(`${Utility.getDateFormat()}`);
 	}
 
 	static getDateHumanFromUnix(date) {
-		return dayjs.unix(date).locale(navigator.language).format(`${Utility.getDateFormat()} ${Utility.getTimeFormat()}`);
+		return dayjs.unix(date).locale(navigator.language).format(`${Utility.getDateFormat()}`);
 	}
 
 	static getDateParse(value) {
 		return dayjs(value);
+	}
+
+	static getDateTimeHuman(date) {
+		return dayjs(date).locale(navigator.language).format(`${Utility.getDateFormat()} ${Utility.getTimeFormat()}`);
+	}
+
+	static getDateTimeHumanFromUnix(date) {
+		return dayjs.unix(date).locale(navigator.language).format(`${Utility.getDateFormat()} ${Utility.getTimeFormat()}`);
 	}
 
 	static getTimeFormat() {
