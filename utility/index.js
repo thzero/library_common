@@ -308,6 +308,13 @@ class Utility {
 		return array;
 	}
 
+	static removeNulls(array) {
+		if (!array || !Array.isArray(array) || array.length === 0)
+			return;
+
+		return array.filter((val) => Boolean(val));
+	}
+
 	static selectBlank(array, prompt) {
 		if (!array)
 			return array;
