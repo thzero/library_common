@@ -1,8 +1,3 @@
-import dayjs from 'dayjs';
-import localeData from 'dayjs/plugin/localeData.js';
-import localizedFormat from 'dayjs/plugin/localizedFormat.js';
-import utc from 'dayjs/plugin/utc.js';
-import 'dayjs/locale/en.js'; // load on demand
 import { cloneDeep as _cloneDeep, debounce as _debounce, merge as _merge } from "lodash-es";
 // import { v4 as uuidv4 } from 'uuid';
 
@@ -13,63 +8,8 @@ import Response from '../response/index.js';
 class Utility {
 	static _idGenerator = IdGenerator;
 
-	static async checksumUpdateCheck(crypto, state, commit, name, params) {
-		const internal = {};
-		internal.name = name;
-		internal.params = params;
-		const checksum = await crypto.checksum(internal);
-
-		const temp = state.checksumLastUpdate[checksum];
-		if (!temp) {
-			// state.checksumLastUpdate[checksum] = Utility.getTimestamp()
-			// commit('setCheckumLastUpdate', state.checksumLastUpdate)
-			return false;
-		}
-
-		const now = Utility.getTimestamp();
-		const delta = now - temp;
-		const max = 5 * 1000 * 60;
-		if (delta > max) {
-			// state.checksumLastUpdate[checksum] = Utility.getTimestamp()
-			// commit('setCheckumLastUpdate', state.checksumLastUpdate)
-			return false;
-		}
-
-		return true;
-	}
-
-	static checksumUpdateComplete(crypto, state, commit, name, params) {
-		const internal = {};
-		internal.name = name;
-		internal.params = params;
-		const checksum = crypto.checksum(internal);
-		state.checksumLastUpdate[checksum] = Utility.getTimestamp();
-		commit('setCheckumLastUpdate', state.checksumLastUpdate);
-	}
-
 	static cloneDeep(value) {
 		return _cloneDeep(value);
-	}
-
-	static convertTimestampToLocal(value) {
-		const temp = dayjs(value);
-		temp.locale(navigator.language);
-		return temp.valueOf();
-	}
-
-	static convertTimestampFromLocal(value) {
-		const temp = dayjs(value).utc();
-		return temp.valueOf();
-	}
-
-	static convertTimestampSecondsToLocal(value) {
-		const temp = dayjs.unix(value);
-		temp.locale(navigator.language);
-		return temp.valueOf();
-	}
-	static convertTimestampSecondsFromLocal(value) {
-		const temp = dayjs.unix(value).utc();
-		return temp.valueOf();
 	}
 
 	static correlationId() {
@@ -122,79 +62,6 @@ class Utility {
 		// if (Utility._idGenerator)
 			return Utility._idGenerator.generateShortId();
 		// return uuidv4();
-	}
-
-	static getDate(date) {
-		if (date)
-			return dayjs.utc(date);
-
-		return dayjs.utc();
-	}
-
-	static getDateFormat() {
-		const localeData = dayjs().localeData();
-		return localeData.longDateFormat('L');
-	}
-
-	static getDateLocal() {
-		const temp = dayjs();
-		return temp;
-	}
-
-	static getDateHuman(date) {
-		return dayjs(date).locale(navigator.language).format(`${Utility.getDateFormat()}`);
-	}
-
-	static getDateHumanFromUnix(date) {
-		return dayjs.unix(date).locale(navigator.language).format(`${Utility.getDateFormat()}`);
-	}
-
-	static getDateParse(value) {
-		return dayjs(value);
-	}
-
-	static getDateTimeHuman(date) {
-		return dayjs(date).locale(navigator.language).format(`${Utility.getDateFormat()} ${Utility.getTimeFormat()}`);
-	}
-
-	static getDateTimeHumanFromUnix(date) {
-		return dayjs.unix(date).locale(navigator.language).format(`${Utility.getDateFormat()} ${Utility.getTimeFormat()}`);
-	}
-
-	static getTimeFormat() {
-		const localeData = dayjs().localeData();
-		return localeData.longDateFormat('LT');
-	}
-
-	static getTimestamp(date) {
-		if (date)
-			return dayjs.utc(date).valueOf();
-
-		return dayjs.utc().valueOf();
-	}
-
-	static getTimestampLocal() {
-		const temp = dayjs();
-		temp.locale(navigator.locale);
-		return temp.valueOf();
-	}
-
-	static getTimestampSeconds() {
-		const temp = dayjs().unix();
-		return temp.valueOf();
-	}
-
-	static getTimestampSecondsLocal() {
-		const temp = dayjs().unix();
-		temp.locale(navigator.locale);
-		return temp.valueOf();
-	}
-
-	static initDateTime() {
-		dayjs.locale('en'); // use English locale globally
-		dayjs.extend(localeData);
-		dayjs.extend(localizedFormat);
-		dayjs.extend(utc);
 	}
 
 	static instantiate(object) {

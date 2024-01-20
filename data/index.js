@@ -1,11 +1,12 @@
+import MomentUtility from '../utility/moment.js';
 import Utility from '../utility/index.js';
 
 class Data {
 	constructor() {
 		this.id = Utility.generateId();
-		this.createdTimestamp = Utility.getTimestamp();
+		this.createdTimestamp = MomentUtility.getTimestamp();
 		this.createdUserId = null;
-		this.updatedTimestamp = Utility.getTimestamp();
+		this.updatedTimestamp = MomentUtility.getTimestamp();
 		this.updatedUserId = null;
 	}
 
