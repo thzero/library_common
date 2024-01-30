@@ -44,11 +44,11 @@ class MomentUtility {
 	}
 
 	static getDateHuman(date) {
-		return dayjs(date).locale(navigator.language).format(`${Utility.getDateFormat()}`);
+		return dayjs(date).locale(navigator.language).format(`${MomentUtility.getDateFormat()}`);
 	}
 
 	static getDateHumanFromUnix(date) {
-		return dayjs.unix(date).locale(navigator.language).format(`${Utility.getDateFormat()}`);
+		return dayjs.unix(date).locale(navigator.language).format(`${MomentUtility.getDateFormat()}`);
 	}
 
 	static getDateParse(value) {
@@ -56,11 +56,11 @@ class MomentUtility {
 	}
 
 	static getDateTimeHuman(date) {
-		return dayjs(date).locale(navigator.language).format(`${Utility.getDateFormat()} ${Utility.getTimeFormat()}`);
+		return dayjs(date).locale(navigator.language).format(`${MomentUtility.getDateFormat()} ${MomentUtility.getTimeFormat()}`);
 	}
 
 	static getDateTimeHumanFromUnix(date) {
-		return dayjs.unix(date).locale(navigator.language).format(`${Utility.getDateFormat()} ${Utility.getTimeFormat()}`);
+		return dayjs.unix(date).locale(navigator.language).format(`${MomentUtility.getDateFormat()} ${MomentUtility.getTimeFormat()}`);
 	}
 
 	static getTimeFormat() {
