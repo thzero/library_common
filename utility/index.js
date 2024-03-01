@@ -1,4 +1,4 @@
-import { cloneDeep as _cloneDeep, debounce as _debounce, merge as _merge } from "lodash-es";
+import { cloneDeep as _cloneDeep, debounce as _debounce, isEqual as _isEqual, merge as _merge } from "lodash-es";
 // import { v4 as uuidv4 } from 'uuid';
 
 import IdGenerator from '@thzero/library_id_nanoid';
@@ -20,13 +20,15 @@ class Utility {
 		return _debounce(func, ttl);
 	}
 
-	static deleteArrayById(array, id) {
+	static deleteArrayById(array, id, name) {
 		if (!array)
 			return;
 		if (!id)
 			return;
 
-		const i = array.map(item => item.id).indexOf(id)
+		name = name ?? 'id';
+
+		const i = array.map(item => item[name]).indexOf(id)
 		if (i === -1)
 			return;
 		array.splice(i, 1);
@@ -83,6 +85,10 @@ class Utility {
 
 		value = value ? value.toLowerCase() : ''
 		return ((value === 'dev') || (value === 'development'));
+	}
+
+	static isEqual(obj1, obj2) {
+		return _isEqual(obj1, obj2);
 	}
 
 	static isFunction(value) {
@@ -163,16 +169,6 @@ class Utility {
 		const high = 100000000000;
 		const low = 0;
 		return Math.floor(Math.random() * (high - low) + low);
-	}
-
-	static removeArrayById(array, id) {
-		if (!id)
-			return;
-
-		const index = array.findIndex(l => l.id !== id);
-		if (index > -1)
-			return array.splice(index, 1);
-		return array;
 	}
 
 	static removeNulls(array) {
@@ -318,12 +314,14 @@ class Utility {
 		return object;
 	}
 
-	static updateArrayById(array, id, object, forceNew) {
+	static updateArrayById(array, id, object, forceNew, name) {
 		if (String.isNullOrEmpty(id))
 			return;
 
+		name = name ?? 'id';
+
 		if (!forceNew) {
-			let index = array.findIndex(l => l.id === id);
+			let index = array.findIndex(l => l[name] === id);
 			if (index === -1)
 				array.push(object);
 			else
@@ -332,7 +330,7 @@ class Utility {
 		}
 
 		const result = [
-			...array.filter(element => element.id !== id),
+			...array.filter(element => element[name] !== id),
 			object
 		];
 		return result;
