@@ -75,6 +75,18 @@ class MomentUtility {
 		return dayjs.utc().valueOf();
 	}
 
+	static getTimestampHighRes() {
+		// return LibraryMomentUtility.getTimestamp();
+		const time = process.hrtime();
+		return time[0] * 1000 + ~~(time[1] * 0.000001); // multiple is faster than divide
+	}
+
+	static getTimestampHighResNs() {
+		// return LibraryMomentUtility.getTimestamp();
+		const time = process.hrtime();
+		return time[0] * 1E+09 + time[1]; // multiple is faster than divide
+	}
+
 	static getTimestampLocal() {
 		const temp = dayjs();
 		temp.locale(navigator.locale);
