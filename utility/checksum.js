@@ -1,4 +1,4 @@
-import MomentUtility from '../utility/moment.js';
+import LibraryMomentUtility from '../utility/moment.js';
 
 class ChecksumUtility {
 	static async checksumUpdateCheck(crypto, state, commit, name, params) {
@@ -14,7 +14,7 @@ class ChecksumUtility {
 			return false;
 		}
 
-		const now = MomentUtility.getTimestamp();
+		const now = LibraryMomentUtility.getTimestamp();
 		const delta = now - temp;
 		const max = 5 * 1000 * 60;
 		if (delta > max) {
