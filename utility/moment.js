@@ -76,15 +76,23 @@ class MomentUtility {
 	}
 
 	static getTimestampHighRes() {
-		// return LibraryMomentUtility.getTimestamp();
-		const time = process.hrtime();
-		return time[0] * 1000 + ~~(time[1] * 0.000001); // multiple is faster than divide
+		if(typeof process === 'object') {
+			const time = process.hrtime();
+			return time[0] * 1000 + ~~(time[1] * 0.000001); // multiple is faster than divide
+		}
+
+		// return MomentUtility.getTimestamp();
+		return Math.floor(performance.timeOrigin + performance.now()); // milliseconds; at best microsecond precision
 	}
 
 	static getTimestampHighResNs() {
-		// return LibraryMomentUtility.getTimestamp();
-		const time = process.hrtime();
-		return time[0] * 1E+09 + time[1]; // multiple is faster than divide
+		if(typeof process === 'object') {
+			const time = process.hrtime();
+			return time[0] * 1E+09 + time[1]; // multiple is faster than divide
+		}
+
+		// return MomentUtility.getTimestamp();
+		return (performance.timeOrigin + performance.now()) /*millseconds*/ * 1e3; // nanoseconds; at best microsecond precision
 	}
 
 	static getTimestampLocal() {
