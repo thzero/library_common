@@ -48,9 +48,13 @@ class Response {
 		response.success = false;
 		response.clazz = clazz;
 		response.method = method;
+		response.message = message;
 		response.err = err;
-		response.errors = errors;
-		if (message || code)
+		if (errors) {
+			response.errors = [];
+			response.errors.push(errors);
+		}
+		if (message && code)
 			response.addGeneric(message, code);
 		return response;
 	}
@@ -67,7 +71,7 @@ class Response {
 	_add(message, code, field, type, params, prefix, suffix) {
 		this.success = false;
 
-		if (!this.errors)
+		if (!Array.isArray(this.errors))
 			this.errors = [];
 
 		const error = {
