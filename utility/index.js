@@ -34,6 +34,17 @@ class Utility {
 		array.splice(i, 1);
 	}
 
+	static distinctArray(array, field) {
+		if (!array)
+			return null;
+		if (String.isNullOrEmpty(field))
+			return null;
+
+		return array.filter((value, index, self) => {
+			return index === self.findIndex((t) => t[field] === value[field]);
+		});
+	}
+
 	static formatUrl(url) {
 		let urlF = url;
 		if (!(typeof url === 'string' || url instanceof String))
@@ -316,7 +327,7 @@ class Utility {
 
 	static updateArrayById(array, id, object, forceNew, name) {
 		if (String.isNullOrEmpty(id))
-			return;
+			return null;
 
 		name = name ?? 'id';
 
@@ -338,7 +349,7 @@ class Utility {
 
 	static updateArrayByObject(array, object, forceNew) {
 		if (!object)
-			return;
+			return null;
 
 		if (!forceNew) {
 			let index = array.findIndex(l => l.id === object.id);
