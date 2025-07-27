@@ -296,7 +296,7 @@ class Utility {
 			return tag;
 		
 		// ['"_\-a-zA-Z0-9 
-		tag = tag.replace("'", '-').replace('"', '-').replace('_', '-');
+		tag = tag.replace('=', '-');
 		return tag;
 	}
 
