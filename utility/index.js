@@ -291,6 +291,15 @@ class Utility {
 		return JSON.stringify(value, Utility._replacer);
 	}
 
+	static tagToUrl(correlationId, tag) {
+		if (!tag)
+			return tag;
+		
+		// ['"_\-a-zA-Z0-9 
+		tag = tag.replace("'", '-').replace('"', '-').replace('_', '-');
+		return tag;
+	}
+
 	static timerStart() {
 		return process.hrtime.bigint();
 	}
