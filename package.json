@@ -1,11 +1,11 @@
 {
   "name": "@thzero/library_common",
   "type": "module",
-  "version": "0.18.14",
+  "version": "0.18.15",
   "version_major": 0,
   "version_minor": 18,
-  "version_patch": 14,
-  "version_date": "11/12/2025",
+  "version_patch": 15,
+  "version_date": "12/30/2025",
   "author": "thZero",
   "license": "MIT",
   "repository": {
@@ -24,6 +24,6 @@
     "@thzero/library_id_nanoid": "^0.18",
     "dayjs": "^1.11.19",
     "dayjs-plugin-utc": "^0.1.2",
-    "lodash-es": "^4.17.21"
+    "lodash-es": "^4.17.22"
   }
 }
