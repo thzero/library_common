@@ -76,7 +76,7 @@ class MomentUtility {
 	}
 
 	static getTimestampHighRes() {
-		if(typeof process === 'object') {
+		if (typeof process === 'object' && process.hrtime) {
 			const time = process.hrtime();
 			return time[0] * 1000 + ~~(time[1] * 0.000001); // multiple is faster than divide
 		}
@@ -86,7 +86,7 @@ class MomentUtility {
 	}
 
 	static getTimestampHighResNs() {
-		if(typeof process === 'object') {
+		if (typeof process === 'object' && process.hrtime) {
 			const time = process.hrtime();
 			return time[0] * 1E+09 + time[1]; // multiple is faster than divide
 		}
