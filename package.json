@@ -1,11 +1,11 @@
 {
   "name": "@thzero/library_common",
   "type": "module",
-  "version": "0.18.25",
+  "version": "0.18.26",
   "version_major": 0,
   "version_minor": 18,
-  "version_patch": 25,
-  "version_date": "06/03/2026",
+  "version_patch": 26,
+  "version_date": "06/19/2026",
   "author": "thZero",
   "author_url": "https://www.thzero.com",
   "copyright": "2020-2026",
@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@thzero/library_id_nanoid": "^0.18",
-    "dayjs": "^1.11.20",
+    "dayjs": "^1.11.21",
     "dayjs-plugin-utc": "^0.1.2",
     "lodash-es": "^4.18.1"
   }
