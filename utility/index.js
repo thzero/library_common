@@ -28,7 +28,9 @@ class Utility {
 
 		name = name ?? 'id';
 
-		const i = array.map(item => item[name]).indexOf(id)
+		// findIndex, not map().indexOf() - the latter built a whole throwaway array
+		// of every key just to locate one of them.
+		const i = array.findIndex(item => item[name] === id);
 		if (i === -1)
 			return;
 		array.splice(i, 1);
@@ -40,9 +42,19 @@ class Utility {
 		if (String.isNullOrEmpty(field))
 			return null;
 
-		return array.filter((value, index, self) => {
-			return index === self.findIndex((t) => t[field] === value[field]);
-		});
+		// A Set of seen keys, not findIndex inside filter. The old form rescanned the
+		// array for every element, so it was O(n squared); this is O(n). First
+		// occurrence still wins, so the result order is unchanged.
+		const seen = new Set();
+		const results = [];
+		for (const value of array) {
+			const key = value[field];
+			if (seen.has(key))
+				continue;
+			seen.add(key);
+			results.push(value);
+		}
+		return results;
 	}
 
 	static formatUrl(url) {
@@ -59,22 +71,21 @@ class Utility {
 		return params.join('/');
 	}
 
+	// An id generator is required. It defaults to library_id_nanoid above, and
+	// setIdGenerator(null) is not supported - there is no fallback to fall back to.
+	// These three used to carry a guard that was commented out with the indentation
+	// left in place, so they read as guarded when they were not, and generateId's
+	// own guard was pointless: the fallback it chose is one of the unguarded ones.
 	static generateId() {
-		if (Utility._idGenerator)
-			return Utility._idGenerator.generateId();
-		return Utility.generateLongId();
+		return Utility._idGenerator.generateId();
 	}
 
 	static generateLongId() {
-		// if (Utility._idGenerator)
-			return Utility._idGenerator.generateLongId();
-		// return uuidv4();
+		return Utility._idGenerator.generateLongId();
 	}
 
 	static generateShortId() {
-		// if (Utility._idGenerator)
-			return Utility._idGenerator.generateShortId();
-		// return uuidv4();
+		return Utility._idGenerator.generateShortId();
 	}
 
 	static instantiate(object) {
@@ -119,11 +130,10 @@ class Utility {
 	}
 
 	static isNull(value) {
-		if (value === null || value === undefined)
-			return true;
-		if (Array.isArray(value))
-			return value.length === 0;
-		return false;
+		// null or undefined, nothing else. This used to also report an empty array
+		// as null, which meant isNotNull([]) was false and the helper could not be
+		// used wherever a value might legitimately be an empty array.
+		return (value === null) || (value === undefined);
 	}
 
 	static isObject(value) {

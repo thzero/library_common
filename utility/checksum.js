@@ -26,12 +26,16 @@ class ChecksumUtility {
 		return true;
 	}
 
-	static checksumUpdateComplete(crypto, state, commit, name, params) {
+	// async, and the checksum is awaited: crypto.checksum returns a promise, and
+	// without the await the promise itself was used as the object key, so every
+	// entry collided on "[object Promise]". The timestamp also referenced an
+	// undeclared MomentUtility rather than the imported binding.
+	static async checksumUpdateComplete(crypto, state, commit, name, params) {
 		const internal = {};
 		internal.name = name;
 		internal.params = params;
-		const checksum = crypto.checksum(internal);
-		state.checksumLastUpdate[checksum] = MomentUtility.getTimestamp();
+		const checksum = await crypto.checksum(internal);
+		state.checksumLastUpdate[checksum] = LibraryMomentUtility.getTimestamp();
 		commit('setCheckumLastUpdate', state.checksumLastUpdate);
 	}
 }

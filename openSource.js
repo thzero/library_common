@@ -9,6 +9,13 @@ export default () => {
         },
         {
             category: 'client',
+            name: '@thzero/library_id_nanoid',
+            url: 'https://github.com/thzero/library_id_nanoid',
+            licenseName: 'MIT',
+            licenseUrl: 'https://github.com/thzero/library_id_nanoid/blob/master/license.md'
+        },
+        {
+            category: 'client',
             name: 'dayjs',
             url: 'https://github.com/iamkun/dayjs',
             licenseName: 'MIT',
@@ -18,8 +25,8 @@ export default () => {
             category: 'client',
             name: 'dayjs-plugin-utc',
             url: 'https://github.com/guisturdy/dayjs-plugin-utc',
-            licenseName: '??',
-            licenseUrl: ''
+            licenseName: 'MIT',
+            licenseUrl: 'https://github.com/guisturdy/dayjs-plugin-utc/blob/master/LICENSE'
         },
         {
             category: 'client',
@@ -27,13 +34,6 @@ export default () => {
             url: 'https://github.com/lodash/lodash',
             licenseName: 'MIT',
             licenseUrl: 'https://github.com/lodash/lodash/blob/master/LICENSE'
-        },
-        {
-            category: 'client',
-            name: 'uuid',
-            url: 'https://github.com/kelektiv/node-uuid',
-            licenseName: 'MIT',
-            licenseUrl: 'https://github.com/kelektiv/node-uuid/blob/master/LICENSE.md'
         },
         {
             category: 'server',
@@ -44,6 +44,13 @@ export default () => {
         },
         {
             category: 'server',
+            name: '@thzero/library_id_nanoid',
+            url: 'https://github.com/thzero/library_id_nanoid',
+            licenseName: 'MIT',
+            licenseUrl: 'https://github.com/thzero/library_id_nanoid/blob/master/license.md'
+        },
+        {
+            category: 'server',
             name: 'dayjs',
             url: 'https://github.com/iamkun/dayjs',
             licenseName: 'MIT',
@@ -53,22 +60,15 @@ export default () => {
             category: 'server',
             name: 'dayjs-plugin-utc',
             url: 'https://github.com/guisturdy/dayjs-plugin-utc',
-            licenseName: '??',
-            licenseUrl: ''
+            licenseName: 'MIT',
+            licenseUrl: 'https://github.com/guisturdy/dayjs-plugin-utc/blob/master/LICENSE'
         },
         {
-            category: 'client',
+            category: 'server',
             name: 'lodash-es',
             url: 'https://github.com/lodash/lodash',
             licenseName: 'MIT',
             licenseUrl: 'https://github.com/lodash/lodash/blob/master/LICENSE'
-        },
-        {
-            category: 'server',
-            name: 'uuid',
-            url: 'https://github.com/kelektiv/node-uuid',
-            licenseName: 'MIT',
-            licenseUrl: 'https://github.com/kelektiv/node-uuid/blob/master/LICENSE.md'
         }
     ];
 }

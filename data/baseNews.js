@@ -17,6 +17,8 @@ class BaseNewsData extends Data {
 	}
 
 	map(requested) {
+		super.map(requested);
+
 		if (!requested)
 			return;
 
@@ -24,7 +26,7 @@ class BaseNewsData extends Data {
 		this.gameSystemId = requested.gameSystemId;
 		this.requiresAuth = requested.requiresAuth;
 		this.status = requested.status;
-		this.sticky = false;
+		this.sticky = requested.sticky;
 		this.timestamp = requested.timestamp;
 		this.title = requested.title;
 		this.type = requested.type;
