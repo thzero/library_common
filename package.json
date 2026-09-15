@@ -1,11 +1,11 @@
 {
   "name": "@thzero/library_common",
   "type": "module",
-  "version": "0.18.27",
+  "version": "0.19.0",
   "version_major": 0,
-  "version_minor": 18,
-  "version_patch": 27,
-  "version_date": "08/27/2026",
+  "version_minor": 19,
+  "version_patch": 0,
+  "version_date": "09/14/2026",
   "author": "thZero",
   "author_url": "https://www.thzero.com",
   "copyright": "2020-2026",
@@ -28,7 +28,7 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "@thzero/library_id_nanoid": "^0.18",
+    "@thzero/library_id_nanoid": "^0.19",
     "dayjs": "^1.11.23",
     "dayjs-plugin-utc": "^0.1.2",
     "lodash-es": "^4.18.1"
