@@ -71,22 +71,21 @@ class Utility {
 		return params.join('/');
 	}
 
+	// An id generator is required. It defaults to library_id_nanoid above, and
+	// setIdGenerator(null) is not supported - there is no fallback to fall back to.
+	// These three used to carry a guard that was commented out with the indentation
+	// left in place, so they read as guarded when they were not, and generateId's
+	// own guard was pointless: the fallback it chose is one of the unguarded ones.
 	static generateId() {
-		if (Utility._idGenerator)
-			return Utility._idGenerator.generateId();
-		return Utility.generateLongId();
+		return Utility._idGenerator.generateId();
 	}
 
 	static generateLongId() {
-		// if (Utility._idGenerator)
-			return Utility._idGenerator.generateLongId();
-		// return uuidv4();
+		return Utility._idGenerator.generateLongId();
 	}
 
 	static generateShortId() {
-		// if (Utility._idGenerator)
-			return Utility._idGenerator.generateShortId();
-		// return uuidv4();
+		return Utility._idGenerator.generateShortId();
 	}
 
 	static instantiate(object) {
