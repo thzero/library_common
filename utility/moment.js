@@ -75,24 +75,17 @@ class MomentUtility {
 		return dayjs.utc().valueOf();
 	}
 
+	// process.hrtime() measures from an arbitrary origin, so it is neither an epoch
+	// timestamp nor comparable to getTimestamp(). performance.timeOrigin is the
+	// epoch milliseconds at process start and performance.now() the high-resolution
+	// offset from it, so the sum is a real high-resolution epoch timestamp. Both
+	// are globals in Node and in the browser, so one branch serves both.
 	static getTimestampHighRes() {
-		if (typeof process === 'object' && process.hrtime) {
-			const time = process.hrtime();
-			return time[0] * 1000 + ~~(time[1] * 0.000001); // multiple is faster than divide
-		}
-
-		// return MomentUtility.getTimestamp();
-		return Math.floor(performance.timeOrigin + performance.now()); // milliseconds; at best microsecond precision
+		return Math.floor(performance.timeOrigin + performance.now()); // milliseconds
 	}
 
 	static getTimestampHighResNs() {
-		if (typeof process === 'object' && process.hrtime) {
-			const time = process.hrtime();
-			return time[0] * 1E+09 + time[1]; // multiple is faster than divide
-		}
-
-		// return MomentUtility.getTimestamp();
-		return (performance.timeOrigin + performance.now()) /*millseconds*/ * 1e3; // nanoseconds; at best microsecond precision
+		return Math.round((performance.timeOrigin + performance.now()) * 1e6); // milliseconds -> nanoseconds
 	}
 
 	static getTimestampLocal() {

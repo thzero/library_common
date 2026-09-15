@@ -14,6 +14,8 @@ class BaseUserData extends Data {
 	}
 
 	map(requested) {
+		super.map(requested);
+
 		if (!requested)
 			return;
 

@@ -20,12 +20,17 @@
   "homepage": "https://github.com/thzero/library_common#readme",
   "scripts": {
     "cli-update": "library-cli --updateversion --pi",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test \"test/*.test.js\"",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "@thzero/library_id_nanoid": "^0.18",
     "dayjs": "^1.11.23",
     "dayjs-plugin-utc": "^0.1.2",
     "lodash-es": "^4.18.1"
+  },
+  "devDependencies": {
+    "eslint": "^9"
   }
 }

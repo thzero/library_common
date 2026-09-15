@@ -3,10 +3,14 @@ import Utility from '../utility/index.js';
 
 class Data {
 	constructor() {
+		// One reading for both. Two calls can straddle a millisecond boundary, which
+		// makes a newly constructed record look as though it was updated after it
+		// was created.
+		const timestamp = MomentUtility.getTimestamp();
 		this.id = Utility.generateId();
-		this.createdTimestamp = MomentUtility.getTimestamp();
+		this.createdTimestamp = timestamp;
 		this.createdUserId = null;
-		this.updatedTimestamp = MomentUtility.getTimestamp();
+		this.updatedTimestamp = timestamp;
 		this.updatedUserId = null;
 	}
 
