@@ -62,6 +62,28 @@ describe('ChecksumUtility.checksumUpdateCheck', () => {
 		assert.equal(await ChecksumUtility.checksumUpdateCheck(crypto, state, () => {}, 'n', { a: 1 }), false);
 	});
 
+	// The map used to keep every expired entry for the life of the session, and
+	// every complete re-committed the whole of it.
+	it('drops an expired entry and commits the pruned map', async () => {
+		const state = newState();
+		let committed = 0;
+		await ChecksumUtility.checksumUpdateComplete(crypto, state, () => {}, 'n', { a: 1 });
+		for (const key of Object.keys(state.checksumLastUpdate))
+			state.checksumLastUpdate[key] -= (6 * 60 * 1000);
+		await ChecksumUtility.checksumUpdateCheck(crypto, state, () => { committed++; }, 'n', { a: 1 });
+		assert.deepEqual(state.checksumLastUpdate, {});
+		assert.equal(committed, 1);
+	});
+
+	it('leaves a live entry alone on a check', async () => {
+		const state = newState();
+		let committed = 0;
+		await ChecksumUtility.checksumUpdateComplete(crypto, state, () => {}, 'n', { a: 1 });
+		await ChecksumUtility.checksumUpdateCheck(crypto, state, () => { committed++; }, 'n', { a: 1 });
+		assert.equal(Object.keys(state.checksumLastUpdate).length, 1);
+		assert.equal(committed, 0);
+	});
+
 	it('does not match a different input', async () => {
 		const state = newState();
 		await ChecksumUtility.checksumUpdateComplete(crypto, state, () => {}, 'n', { a: 1 });

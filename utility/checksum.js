@@ -18,8 +18,11 @@ class ChecksumUtility {
 		const delta = now - temp;
 		const max = 5 * 1000 * 60;
 		if (delta > max) {
-			// state.checksumLastUpdate[checksum] = MomentUtility.getTimestamp()
-			// commit('setCheckumLastUpdate', state.checksumLastUpdate)
+			// An expired entry is no use to anyone; drop it here, or the map gains
+			// one entry per distinct name and params for the life of the session,
+			// and every complete re-commits the whole of it.
+			delete state.checksumLastUpdate[checksum];
+			commit('setCheckumLastUpdate', state.checksumLastUpdate);
 			return false;
 		}
 

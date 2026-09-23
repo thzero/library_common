@@ -33,9 +33,14 @@ class MomentUtility {
 		return dayjs.utc();
 	}
 
+	// The locale's format strings, resolved once. Each of these used to build a
+	// throwaway dayjs and ask it for the locale data on every call, and the human
+	// date-time format did both, per item when formatting a list. initDateTime
+	// resets them, since it is where the locale is set.
 	static getDateFormat() {
-		const localeData = dayjs().localeData();
-		return localeData.longDateFormat('L');
+		if (!MomentUtility._formatDate)
+			MomentUtility._formatDate = dayjs().localeData().longDateFormat('L');
+		return MomentUtility._formatDate;
 	}
 
 	static getDateLocal() {
@@ -64,15 +69,19 @@ class MomentUtility {
 	}
 
 	static getTimeFormat() {
-		const localeData = dayjs().localeData();
-		return localeData.longDateFormat('LT');
+		if (!MomentUtility._formatTime)
+			MomentUtility._formatTime = dayjs().localeData().longDateFormat('LT');
+		return MomentUtility._formatTime;
 	}
 
 	static getTimestamp(date) {
 		if (date)
 			return dayjs.utc(date).valueOf();
 
-		return dayjs.utc().valueOf();
+		// Epoch milliseconds have no timezone, so this is the same number
+		// dayjs.utc().valueOf() returned, without a Date, a dayjs wrapper and a
+		// plugin dispatch on the way. Every Data constructor comes through here.
+		return Date.now();
 	}
 
 	// process.hrtime() measures from an arbitrary origin, so it is neither an epoch
@@ -110,7 +119,13 @@ class MomentUtility {
 		dayjs.extend(localeData);
 		dayjs.extend(localizedFormat);
 		dayjs.extend(utc);
+
+		MomentUtility._formatDate = null;
+		MomentUtility._formatTime = null;
 	}
+
+	static _formatDate = null;
+	static _formatTime = null;
 }
 
 export default MomentUtility;
