@@ -66,6 +66,31 @@ describe('date helpers', () => {
 		assert.equal(typeof MomentUtility.getDateHumanFromUnix(seconds), 'string');
 		assert.equal(typeof MomentUtility.getDateTimeHumanFromUnix(seconds), 'string');
 	});
+
+	// The format strings used to be re-read from a throwaway dayjs on every call,
+	// twice per formatted date-time.
+	it('resolves the locale format strings once, and again after initDateTime', () => {
+		MomentUtility.initDateTime();
+		assert.equal(MomentUtility._formatDate, null);
+		const date = MomentUtility.getDateFormat();
+		const time = MomentUtility.getTimeFormat();
+		assert.equal(typeof date, 'string');
+		assert.equal(typeof time, 'string');
+		assert.equal(MomentUtility._formatDate, date);
+		assert.equal(MomentUtility.getDateFormat(), date);
+
+		MomentUtility.initDateTime();
+		assert.equal(MomentUtility._formatDate, null, 'a locale change starts over');
+		assert.equal(MomentUtility.getDateFormat(), date);
+	});
+
+	it('formats a known instant with the cached formats', () => {
+		const seconds = Math.floor(Date.UTC(2020, 0, 2, 3, 4, 5) / 1000);
+		const first = MomentUtility.getDateTimeHumanFromUnix(seconds);
+		const second = MomentUtility.getDateTimeHumanFromUnix(seconds);
+		assert.equal(second, first);
+		assert.ok(first.includes('2020'));
+	});
 });
 
 describe('BaseSettings', () => {

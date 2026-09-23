@@ -103,4 +103,78 @@ describe('Utility.promiseTimeout', () => {
 		const slow = new Promise(resolve => setTimeout(resolve, 5000).unref());
 		await assert.rejects(() => Utility.promiseTimeout(slow, 10));
 	});
+
+	// Regression: the timer was cleared only on resolve. A rejection left it
+	// armed for the full ttl, holding the closure and, in Node, the process.
+	it('clears the timer when the inner promise rejects', async () => {
+		const cleared = [];
+		const original = globalThis.clearTimeout;
+		globalThis.clearTimeout = (id) => { cleared.push(id); return original(id); };
+		try {
+			await assert.rejects(() => Utility.promiseTimeout(Promise.reject(new Error('boom')), 60000), /boom/);
+		}
+		finally {
+			globalThis.clearTimeout = original;
+		}
+		assert.equal(cleared.length, 1);
+	});
+
+	it('rejects with the inner error, not the timeout', async () => {
+		await assert.rejects(() => Utility.promiseTimeout(Promise.reject(new Error('inner')), 1000), /inner/);
+	});
+});
+
+describe('Utility.formatUrlParams', () => {
+	// Regression: it unshifted the url onto the caller's own params array, so an
+	// array reused across calls grew by one url each time.
+	it('does not mutate the params it is handed', () => {
+		const params = [ 'a', 'b' ];
+		assert.equal(Utility.formatUrlParams('base', params), 'base/a/b');
+		assert.equal(Utility.formatUrlParams('base', params), 'base/a/b');
+		assert.deepEqual(params, [ 'a', 'b' ]);
+	});
+
+	it('accepts a single value or nothing', () => {
+		assert.equal(Utility.formatUrlParams('base', 'x'), 'base/x');
+		assert.equal(Utility.formatUrlParams('base', null), 'base');
+	});
+});
+
+describe('Utility.selectBlank', () => {
+	it('prepends the blank entry to a copy', () => {
+		const values = [ { id: 1, name: 'one' } ];
+		const result = Utility.selectBlank(values, 'pick');
+		assert.deepEqual(result, [ { id: null, name: '<pick>' }, { id: 1, name: 'one' } ]);
+		assert.equal(values.length, 1, 'the original is untouched');
+	});
+});
+
+describe('Utility.sortByName', () => {
+	it('sorts by name in either direction', () => {
+		const values = [ { name: 'beta' }, { name: 'Alpha' }, { name: 'gamma' } ];
+		assert.deepEqual(Utility.sortByName([ ...values ], true).map(v => v.name), [ 'Alpha', 'beta', 'gamma' ]);
+		assert.deepEqual(Utility.sortByName([ ...values ], false).map(v => v.name), [ 'gamma', 'beta', 'Alpha' ]);
+	});
+
+	it('keeps entries without a name from throwing', () => {
+		assert.doesNotThrow(() => Utility.sortByName([ { name: 'b' }, null, { name: 'a' }, {} ], true));
+	});
+});
+
+describe('Utility.updateArrayById with forceNew', () => {
+	it('returns a new array with the entry replaced at the end', () => {
+		const values = [ { id: 1, v: 'a' }, { id: 2, v: 'b' } ];
+		const result = Utility.updateArrayById(values, 1, { id: 1, v: 'c' }, true);
+		assert.deepEqual(result, [ { id: 2, v: 'b' }, { id: 1, v: 'c' } ]);
+		assert.notEqual(result, values);
+		assert.deepEqual(values, [ { id: 1, v: 'a' }, { id: 2, v: 'b' } ]);
+	});
+});
+
+describe('Utility.isDev', () => {
+	it('is resolved once and answers as a boolean', () => {
+		const first = Utility.isDev;
+		assert.equal(typeof first, 'boolean');
+		assert.equal(Utility.isDev, first);
+	});
 });

@@ -5,6 +5,10 @@ import IdGenerator from '@thzero/library_id_nanoid';
 
 import Response from '../response/index.js';
 
+// One collator for the sort helpers. localeCompare resolves the locale on
+// every comparison, and a sort makes n log n of them.
+const collator = new Intl.Collator();
+
 class Utility {
 	static _idGenerator = IdGenerator;
 
@@ -67,8 +71,9 @@ class Utility {
 	static formatUrlParams(url, params) {
 		if (!Array.isArray(params))
 			params = params ? [ params ] : [];
-		params.unshift(url);
-		return params.join('/');
+		// A new array. This used to unshift onto the caller's own params, so a
+		// params array reused across calls grew by one url each time.
+		return [ url, ...params ].join('/');
 	}
 
 	// An id generator is required. It defaults to library_id_nanoid above, and
@@ -100,13 +105,19 @@ class Utility {
 		return object;
 	}
 
+	// Resolved once. NODE_ENV does not change while the process runs, and a
+	// process.env read goes through a native interceptor on every access.
 	static get isDev() {
-		let value = process.env.NODE_ENV;
-		if (String.isNullOrEmpty(value))
-			return true;
-
-		value = value ? value.toLowerCase() : ''
-		return ((value === 'dev') || (value === 'development'));
+		if (Utility._isDev === null) {
+			let value = process.env.NODE_ENV;
+			if (String.isNullOrEmpty(value))
+				Utility._isDev = true;
+			else {
+				value = value.toLowerCase();
+				Utility._isDev = ((value === 'dev') || (value === 'development'));
+			}
+		}
+		return Utility._isDev;
 	}
 
 	static isEqual(obj1, obj2) {
@@ -175,14 +186,15 @@ class Utility {
 			}, ttl);
 		});
 
-		// Returns a race between our timeout and the passed in promise
+		// A race between the timeout and the promise passed in. The timer is
+		// cleared however it ends: it used to be cleared only on resolve, so every
+		// rejection left it armed for the full ttl, holding the closure and, in
+		// Node, the process.
 		return Promise.race([
 			executingPromise,
 			timeoutPromise
-		]).then((result) => {
-			clearTimeout(id)
-			// Pass the result back
-			return result
+		]).finally(() => {
+			clearTimeout(id);
 		});
 	}
 
@@ -205,9 +217,9 @@ class Utility {
 
 		prompt = prompt ? '<' + prompt + '>' : '';
 
-		const temp = array.slice(0);
-		temp.unshift({ id: null, name: prompt });
-		return temp;
+		// One copy. slice then unshift copied the array and then shifted every
+		// element along by one.
+		return [ { id: null, name: prompt }, ...array ];
 	}
 
 	static setIdGenerator(generator) {
@@ -284,7 +296,9 @@ class Utility {
 			a = field(a);
 			b = field(b);
 		}
-		return (a && a.localeCompare(b));
+		// One collator for the module. localeCompare resolves the locale on every
+		// comparison, and a sort makes n log n of them.
+		return (a && collator.compare(a, b));
 	}
 
 	static sortByTimestamp(values, ascending) {
@@ -359,10 +373,9 @@ class Utility {
 			return array;
 		}
 
-		const result = [
-			...array.filter(element => element[name] !== id),
-			object
-		];
+		// filter then push: one copy, not a filtered copy and then a spread of it.
+		const result = array.filter(element => element[name] !== id);
+		result.push(object);
 		return result;
 	}
 
@@ -379,12 +392,12 @@ class Utility {
 			return array;
 		}
 
-		const result = [
-			...array.filter(element => element.id !== object.id),
-			object
-		];
+		const result = array.filter(element => element.id !== object.id);
+		result.push(object);
 		return result;
 	}
+
+	static _isDev = null;
 
 	static _replacer(key, value) {
 		if (value === null)
