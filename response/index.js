@@ -68,6 +68,11 @@ class Response {
 		context.throw(500);
 	}
 
+	toJSON() {
+		const { err, clazz, method, ...rest } = this;
+		return rest;
+	}
+
 	_add(message, code, field, type, params, prefix, suffix) {
 		this.success = false;
 
